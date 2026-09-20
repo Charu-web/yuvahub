@@ -1,0 +1,55 @@
+<?php
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
+if ($_SERVER['REQUEST_METHOD']==='OPTIONS') { http_response_code(204); exit; }
+
+$dbPath = __DIR__ . '/../data/db.json';
+$uploadRoot = __DIR__ . '/../../uploads';
+if (!is_dir(dirname($dbPath))) mkdir(dirname($dbPath),0755,true);
+if (!file_exists($dbPath)) file_put_contents($dbPath,json_encode([],JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
+function db(){ global $dbPath; $d=json_decode(@file_get_contents($dbPath),true); return is_array($d)?$d:[]; }
+function saveDb($d){ global $dbPath; file_put_contents($dbPath,json_encode($d,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT),LOCK_EX); }
+function body(){ $raw=file_get_contents('php://input'); $j=json_decode($raw,true); return is_array($j)?$j:[]; }
+function out($d,$code=200){ http_response_code($code); echo json_encode($d,JSON_UNESCAPED_UNICODE); exit; }
+function token(){ $h=$_SERVER['HTTP_AUTHORIZATION']??''; return preg_match('/Bearer\s+(.+)/i',$h,$m)?trim($m[1]):''; }
+function requireAuth(){ $t=token(); $d=db(); if(!$t || empty($d['sessions'][$t])) out(['success'=>false,'error'=>'Unauthorized'],401); return $d['sessions'][$t]; }
+function id(){ $p=parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH); return basename(rtrim($p,'/')); }
+function makeId($prefix){ return $prefix.'-'.bin2hex(random_bytes(5)); }
+
+$d=db(); $path=parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH); $rel=preg_replace('#^/api/admin/?#','',$path); $parts=array_values(array_filter(explode('/',$rel)));
+$method=$_SERVER['REQUEST_METHOD'];
+
+if (($parts[0]??'')==='login' && $method==='POST') {
+  $b=body(); $email=strtolower(trim($b['email']??'')); $pass=(string)($b['password']??'');
+  if (!$email || !$pass) out(['success'=>false,'error'=>'Email and password are required'],422);
+  $admin=$d['admin']??[];
+  if ($email!==strtolower($admin['email']??'') || !password_verify($pass,$admin['passwordHash']??'')) out(['success'=>false,'error'=>'अवैध ईमेल किंवा पासवर्ड. कृपया तपासा.'],401);
+  $t=bin2hex(random_bytes(32)); $d['sessions'][$t]=['adminId'=>$admin['id'],'createdAt'=>date('c')]; saveDb($d);
+  unset($admin['passwordHash']); out(['success'=>true,'token'=>$t,'admin'=>$admin]);
+}
+if (($parts[0]??'')==='me' && $method==='GET') { $s=requireAuth(); $admin=$d['admin']; unset($admin['passwordHash']); out(['success'=>true,'admin'=>$admin]); }
+if (($parts[0]??'')==='logout' && $method==='POST') { $t=token(); unset($d['sessions'][$t]); saveDb($d); out(['success'=>true]); }
+if (($parts[0]??'')==='change-password' && $method==='PUT') { $s=requireAuth(); $b=body(); if(!password_verify((string)($b['currentPassword']??''),$d['admin']['passwordHash']??'')) out(['success'=>false,'error'=>'Current password is incorrect'],400); $d['admin']['passwordHash']=password_hash((string)$b['newPassword'],PASSWORD_DEFAULT); saveDb($d); out(['success'=>true]); }
+requireAuth();
+
+$resource=$parts[0]??''; $item=$parts[1]??null; $action=$parts[2]??null;
+if ($resource==='stats' && $method==='GET') { $regs=$d['registrations']??[]; $apps=$d['applications']??[]; $all=$regs?:$apps; $total=count($all); $pending=$approved=0; foreach($all as $r){$st=$r['status']??'Pending'; if(strtolower($st)==='pending')$pending++; if(strtolower($st)==='approved')$approved++;} $district=[]; foreach($all as $r){$x=$r['district']??'Unknown';$district[$x]=($district[$x]??0)+1;} $ds=[];foreach($district as $k=>$v)$ds[]=['district'=>$k,'count'=>$v]; usort($all,function($a,$b){return strcmp($b['createdAt']??'',$a['createdAt']??'');}); out(['success'=>true,'stats'=>['total'=>$total,'pending'=>$pending,'approved'=>$approved,'rejected'=>max(0,$total-$pending-$approved)],'districtStats'=>$ds,'recent'=>array_slice($all,0,10)]); }
+
+if ($resource==='jobs') {
+ if($method==='GET') out(['success'=>true,'jobs'=>$d['jobs']??[]]);
+ if($method==='POST'){ $b=body(); $b['id']=makeId('job'); $b['isPublished']=isset($b['isPublished'])?(bool)$b['isPublished']:true; $d['jobs'][]=$b; saveDb($d); out(['success'=>true,'job'=>$b],201); }
+ if($item!==null){ $idx=-1; foreach(($d['jobs']??[]) as $i=>$j)if(($j['id']??'')===$item)$idx=$i; if($idx<0)out(['success'=>false,'error'=>'Job not found'],404); if($action==='toggle-publish'&&$method==='PATCH'){$d['jobs'][$idx]['isPublished']=!empty($d['jobs'][$idx]['isPublished'])?false:true;saveDb($d);out(['success'=>true,'isPublished'=>$d['jobs'][$idx]['isPublished']]);} if($method==='PUT'){$b=body();$b['id']=$item;$d['jobs'][$idx]=array_merge($d['jobs'][$idx],$b);saveDb($d);out(['success'=>true,'job'=>$d['jobs'][$idx]]);} if($method==='DELETE'){array_splice($d['jobs'],$idx,1);saveDb($d);out(['success'=>true]);} }
+}
+
+if ($resource==='applications') { if($method==='GET')out(['success'=>true,'applications'=>$d['applications']??$d['registrations']??[]]); if($item!==null){$arr=&$d['applications']; if($action==='status'&&$method==='PATCH'){foreach($arr as &$a)if(($a['id']??'')===$item)$a['status']=body()['status']??'Pending';saveDb($d);out(['success'=>true]);} if($method==='DELETE'){foreach($arr as $i=>$a)if(($a['id']??'')===$item){array_splice($arr,$i,1);saveDb($d);out(['success'=>true]);}out(['success'=>false,'error'=>'Application not found'],404);}} }
+
+if ($resource==='registrations' && $item!==null && $action==='status' && $method==='PUT') { foreach($d['registrations']??[] as &$r)if(($r['_id']??$r['id']??'')===$item){$r['status']=body()['status']??'Pending';saveDb($d);out(['success'=>true]);} out(['success'=>false,'error'=>'Registration not found'],404); }
+
+foreach(['slider'=>'sliders','jobcard'=>'jobCards'] as $route=>$key){ if($resource===$route){ if($method==='GET')out(['success'=>true, $key=>$d[$key]??[]]); if($action==='activate'&&$method==='PUT'){foreach($d[$key]??[] as &$x)$x['isActive']=(($x['id']??'')===$item);saveDb($d);out(['success'=>true]);} if($method==='DELETE'&&$item){foreach($d[$key]??[] as $i=>$x)if(($x['id']??'')===$item){array_splice($d[$key],$i,1);saveDb($d);out(['success'=>true]);}out(['success'=>false,'error'=>'Not found'],404);} if($action==='upload'&&$method==='POST'){ if(empty($_FILES['image']['tmp_name']))out(['success'=>false,'error'=>'Image required'],422); global $uploadRoot; if(!is_dir($uploadRoot))mkdir($uploadRoot,0755,true); $ext=strtolower(pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION)); if(!in_array($ext,['jpg','jpeg','png','webp','gif']))out(['success'=>false,'error'=>'Unsupported image type'],422); $name=$route.'-'.date('YmdHis').'-'.bin2hex(random_bytes(3)).'.'.$ext; move_uploaded_file($_FILES['image']['tmp_name'],$uploadRoot.'/'.$name); $x=['id'=>makeId($route),'title'=>$_POST['title']??$route,'imageSrc'=>'/uploads/'.$name,'isActive'=>true]; foreach($d[$key]??[] as &$old)$old['isActive']=false; $d[$key][]=$x; saveDb($d); out(['success'=>true,$route=>$x]); } } }
+
+if ($resource==='posts') { if($method==='GET')out(['success'=>true,'posts'=>$d['posts']??[]]); if($method==='POST'){ $b=$_POST; $x=['id'=>makeId('post'),'title'=>$b['title']??'','marathiTitle'=>$b['marathiTitle']??'','category'=>$b['category']??'Notice','date'=>$b['date']??date('Y-m-d'),'content'=>$b['content']??'']; if(!empty($_FILES['image']['tmp_name'])){$ext=strtolower(pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION));$name='post-'.bin2hex(random_bytes(4)).'.'.$ext;move_uploaded_file($_FILES['image']['tmp_name'],$uploadRoot.'/'.$name);$x['imageSrc']='/uploads/'.$name;} $d['posts'][]=$x;saveDb($d);out(['success'=>true,'post'=>$x],201);} if($method==='DELETE'&&$item){foreach($d['posts']??[] as $i=>$x)if(($x['id']??'')===$item){array_splice($d['posts'],$i,1);saveDb($d);out(['success'=>true]);}out(['success'=>false,'error'=>'Post not found'],404);} }
+
+out(['success'=>false,'error'=>'Endpoint not found'],404);
+?>

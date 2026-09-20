@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build outputs
+dist/
+build/
+*.zip
+*.tar.gz
+
+# environment & secrets
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+!.env.example
+
+# debug
+*.log
+
+# system
+.DS_Store
+Thumbs.db

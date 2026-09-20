@@ -1,0 +1,109 @@
+{
+  "admin": {
+    "id": "admin-1",
+    "name": "Administrator",
+    "email": "admin@nokrimela.gov.in",
+    "passwordHash": "$2y$12$1rT9BpBaXPswyZQhmqhKG.AQngwTgaghbPlOZMHuvr/9Ise.gjAlS"
+  },
+  "sessions": {
+    "910f995f1a5cf0151cff2b872f90bc55774355bf980b381d5fc91097292880ef": {
+      "adminId": "admin-1",
+      "createdAt": "2026-08-22T04:52:27+00:00"
+    },
+    "e5815a8cf5c44bf5b1c583cdf16fdd9fb90ade364b0df7989f3d4de36e70d024": {
+      "adminId": "admin-1",
+      "createdAt": "2026-08-22T04:52:33+00:00"
+    },
+    "af66f8bf170ded6a402c7b25029060a56591de5f37d13dd2154ffa91c2bf4939": {
+      "adminId": "admin-1",
+      "createdAt": "2026-08-22T05:11:43.989Z"
+    },
+    "0f7778002934b4b8ffc867e55d725a64154c61001e499415c32e0229cb4dc4d0": {
+      "adminId": "admin-1",
+      "createdAt": "2026-08-22T05:11:44.016Z"
+    }
+  },
+  "registrations": [
+    {
+      "fullName": "Audit Candidate Test",
+      "contactNumber": "9876543210",
+      "emailAddress": "audit.candidate@example.com",
+      "gender": "Female",
+      "district": "Yavatmal",
+      "qualification": "Graduate",
+      "_id": "MP-JOB-2026-666321",
+      "candidateId": "MP-JOB-2026-666321",
+      "id": "MP-JOB-2026-666321",
+      "status": "Pending",
+      "createdAt": "2026-08-22T05:11:44.064Z"
+    }
+  ],
+  "applications": [
+    {
+      "fullName": "Audit Candidate Test",
+      "contactNumber": "9876543210",
+      "emailAddress": "audit.candidate@example.com",
+      "gender": "Female",
+      "district": "Yavatmal",
+      "qualification": "Graduate",
+      "_id": "MP-JOB-2026-666321",
+      "candidateId": "MP-JOB-2026-666321",
+      "id": "MP-JOB-2026-666321",
+      "status": "Pending",
+      "createdAt": "2026-08-22T05:11:44.064Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job-101",
+      "title": "Graduate Trainee Engineer (GTE)",
+      "marathiTitle": "ग्रॅज्युएट ट्रेनी इंजिनिअर",
+      "company": "Tata Motors Pune",
+      "logo": "/Companylogo/tatamotorlogo.png",
+      "sector": "Engineering & Manufacturing",
+      "qualification": "BE / B.Tech (Mechanical / Auto / Production / Electrical)",
+      "salary": "₹22,500 - ₹32,000 / महिना",
+      "location": "Pune / Chinchwad",
+      "vacancies": "45 पदे",
+      "description": "Tata Motors मध्ये ट्रेनी इंजिनिअर पदासाठी निवड.",
+      "isPublished": true
+    },
+    {
+      "id": "job-102",
+      "title": "Production / Assembly Associate",
+      "marathiTitle": "प्रोडक्शन असेंब्ली असिस्टंट",
+      "company": "Bajaj Auto Ltd",
+      "logo": "/Companylogo/bajajlogo.jpg",
+      "sector": "Automobile",
+      "qualification": "10th, 12th, ITI (Fitter, Turner, Welder, Machinist)",
+      "salary": "₹18,500 - ₹24,000 / महिना",
+      "location": "Akurdi / Chakan",
+      "vacancies": "60 पदे",
+      "description": "ऑटोमोबाईल असेंब्ली लाईन भरती.",
+      "isPublished": true
+    }
+  ],
+  "sliders": [
+    {
+      "id": "slider-1",
+      "title": "खासदार नोकरी महोत्सव २०२६ अधिकृत बॅनर",
+      "imageSrc": "/Slider.jpg",
+      "isActive": true
+    }
+  ],
+  "jobCards": [
+    {
+      "id": "jobcard-1",
+      "title": "विशेष युवा रोजगार PVC जॉब कार्ड",
+      "imageSrc": "/pvc-job-card-official.png",
+      "isActive": true
+    }
+  ],
+  "settings": {
+    "siteTitle": "खासदार नोकरी महोत्सव २०२६",
+    "eventDate": "२० सप्टेंबर २०२६",
+    "eventVenue": "डिग्रस, यवतमाळ",
+    "representativeName": "मा. संजय देशमुख (खासदार यवतमाळ - वाशिम)"
+  },
+  "posts": []
+}

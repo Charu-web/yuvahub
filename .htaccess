@@ -1,0 +1,66 @@
+# ============================================================
+# Apache / LiteSpeed Configuration for Hostinger Subdomain
+# Subdomain: yuvahub.empireitxpert.in
+# ============================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Direct API routes to PHP handlers if present
+  RewriteRule ^api/email/send-code/?$ api/email/send-code.php [L,QSA]
+  RewriteRule ^api/email/verify-code/?$ api/email/verify-code.php [L,QSA]
+  RewriteRule ^api/email/verify-smtp/?$ api/email/verify-smtp.php [L,QSA]
+  RewriteRule ^api/jobs/?$ api/jobs.php [L,QSA]
+  RewriteRule ^api/slider/?$ api/slider.php [L,QSA]
+  RewriteRule ^api/jobcard/?$ api/jobcard.php [L,QSA]
+  RewriteRule ^api/settings/?$ api/settings.php [L,QSA]
+  RewriteRule ^api/registrations/?$ api/registrations.php [L,QSA]
+  RewriteRule ^api/registrations/(.+)$ api/registrations.php [L,QSA]
+  RewriteRule ^api/admin(?:/(.*))?$ api/admin/index.php [L,QSA]
+
+  # 3. Serve existing files directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 4. SPA fallback for all other routes
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Browser Caching for Performance
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+<IfModule mod_authz_core.c>
+  <FilesMatch "^db\.json$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
