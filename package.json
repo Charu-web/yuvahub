@@ -4,13 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k -n \"SERVER,VITE\" -c \"blue,green\" \"node server.js\" \"vite\"",
-    "server": "node server.js",
+    "dev": "concurrently -k -n \"SERVER,VITE\" -c \"blue,green\" \"node server.cjs\" \"vite\"",
+    "server": "node server.cjs",
     "client": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@netlify/blobs": "^11.1.1",
+    "@netlify/functions": "^6.0.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -20,6 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.2",
+    "serverless-http": "^4.0.0",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {

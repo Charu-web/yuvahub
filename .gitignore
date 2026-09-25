@@ -21,3 +21,8 @@ build/
 # system
 .DS_Store
 Thumbs.db
+# Local Netlify folder
+.netlify
+backup_before_netlify/
+scratch/
+/assets/

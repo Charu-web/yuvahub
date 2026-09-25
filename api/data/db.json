@@ -3,26 +3,9 @@
     "id": "admin-1",
     "name": "Administrator",
     "email": "admin@nokrimela.gov.in",
-    "passwordHash": "$2y$12$1rT9BpBaXPswyZQhmqhKG.AQngwTgaghbPlOZMHuvr/9Ise.gjAlS"
+    "passwordHash": "$2a$10$K7xwwR4s6aFW20lew5EwxeJNpD.LBWCzfsQK7Xw75fi3hAOxk2Tc6"
   },
-  "sessions": {
-    "910f995f1a5cf0151cff2b872f90bc55774355bf980b381d5fc91097292880ef": {
-      "adminId": "admin-1",
-      "createdAt": "2026-08-22T04:52:27+00:00"
-    },
-    "e5815a8cf5c44bf5b1c583cdf16fdd9fb90ade364b0df7989f3d4de36e70d024": {
-      "adminId": "admin-1",
-      "createdAt": "2026-08-22T04:52:33+00:00"
-    },
-    "af66f8bf170ded6a402c7b25029060a56591de5f37d13dd2154ffa91c2bf4939": {
-      "adminId": "admin-1",
-      "createdAt": "2026-08-22T05:11:43.989Z"
-    },
-    "0f7778002934b4b8ffc867e55d725a64154c61001e499415c32e0229cb4dc4d0": {
-      "adminId": "admin-1",
-      "createdAt": "2026-08-22T05:11:44.016Z"
-    }
-  },
+  "sessions": {},
   "registrations": [
     {
       "fullName": "Audit Candidate Test",
@@ -36,6 +19,32 @@
       "id": "MP-JOB-2026-666321",
       "status": "Pending",
       "createdAt": "2026-08-22T05:11:44.064Z"
+    },
+    {
+      "fullName": "Ajay Shinde Test",
+      "gender": "Male",
+      "dateOfBirth": "2000-05-15",
+      "contactNumber": "9823456789",
+      "emailAddress": "ajay.shinde.test@gmail.com",
+      "permanentAddress": "Shivaji Chowk, Dharashiv",
+      "district": "धाराशिव (Dharashiv)",
+      "state": "Maharashtra",
+      "pincode": "413501",
+      "educationalQualification": "Graduate - B.E. / B.Tech",
+      "coreStream": "Computer Science",
+      "yearOfPassing": "2023",
+      "professionalStatus": "Fresher (नवशिक्या)",
+      "totalWorkExperience": "0",
+      "currentJobProfile": "",
+      "skillsSummary": "JavaScript, React, Web Development",
+      "targetIndustries": "it",
+      "preferredJobLocation": "dharashiv",
+      "candidateDeclaration": true,
+      "_id": "MP-JOB-2026-272100",
+      "candidateId": "MP-JOB-2026-272100",
+      "id": "MP-JOB-2026-272100",
+      "status": "Pending",
+      "createdAt": "2026-09-25T11:19:51.372Z"
     }
   ],
   "applications": [
@@ -51,6 +60,32 @@
       "id": "MP-JOB-2026-666321",
       "status": "Pending",
       "createdAt": "2026-08-22T05:11:44.064Z"
+    },
+    {
+      "fullName": "Ajay Shinde Test",
+      "gender": "Male",
+      "dateOfBirth": "2000-05-15",
+      "contactNumber": "9823456789",
+      "emailAddress": "ajay.shinde.test@gmail.com",
+      "permanentAddress": "Shivaji Chowk, Dharashiv",
+      "district": "धाराशिव (Dharashiv)",
+      "state": "Maharashtra",
+      "pincode": "413501",
+      "educationalQualification": "Graduate - B.E. / B.Tech",
+      "coreStream": "Computer Science",
+      "yearOfPassing": "2023",
+      "professionalStatus": "Fresher (नवशिक्या)",
+      "totalWorkExperience": "0",
+      "currentJobProfile": "",
+      "skillsSummary": "JavaScript, React, Web Development",
+      "targetIndustries": "it",
+      "preferredJobLocation": "dharashiv",
+      "candidateDeclaration": true,
+      "_id": "MP-JOB-2026-272100",
+      "candidateId": "MP-JOB-2026-272100",
+      "id": "MP-JOB-2026-272100",
+      "status": "Pending",
+      "createdAt": "2026-09-25T11:19:51.372Z"
     }
   ],
   "jobs": [
@@ -86,7 +121,7 @@
   "sliders": [
     {
       "id": "slider-1",
-      "title": "खासदार नोकरी महोत्सव २०२६ अधिकृत बॅनर",
+      "title": "नोकरी महोत्सव २०२६ अधिकृत बॅनर - धाराशिव मतदार संघ",
       "imageSrc": "/Slider.jpg",
       "isActive": true
     }
@@ -94,16 +129,16 @@
   "jobCards": [
     {
       "id": "jobcard-1",
-      "title": "विशेष युवा रोजगार PVC जॉब कार्ड",
+      "title": "विशेष युवा रोजगार PVC जॉब कार्ड - धाराशिव मतदार संघ",
       "imageSrc": "/pvc-job-card-official.png",
       "isActive": true
     }
   ],
   "settings": {
-    "siteTitle": "खासदार नोकरी महोत्सव २०२६",
-    "eventDate": "२० सप्टेंबर २०२६",
-    "eventVenue": "डिग्रस, यवतमाळ",
-    "representativeName": "मा. संजय देशमुख (खासदार यवतमाळ - वाशिम)"
+    "siteTitle": "Naukri Mahotsav 2026 | YuvaHub",
+    "eventDate": "२५ ऑक्टोबर २०२६",
+    "eventVenue": "धाराशिव",
+    "representativeName": "मा. ओमराजे निंबाळकर (खासदार, धाराशिव मतदार संघ)"
   },
   "posts": []
 }

@@ -7,15 +7,17 @@ import StandardNaukriMahotsav from './components/StandardNaukriMahotsav';
 import StatsCounter from './components/StatsCounter';
 import RegistrationForm from './components/RegistrationForm';
 import EmployersSection from './components/EmployersSection';
-import SuccessStories from './components/SuccessStories';
 import JobCardBanner from './components/JobCardBanner';
 import UpdatesNotice from './components/UpdatesNotice';
+import FacebookUpdatesSection from './components/FacebookUpdatesSection';
 import BlogsSection from './components/BlogsSection';
 import DownloadsSection from './components/DownloadsSection';
 import VenueAndFAQ from './components/VenueAndFAQ';
 import Footer from './components/Footer';
 import { ToastProvider } from './context/ToastContext';
 import JobCardPage from './pages/JobCardPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
 /**
  * Main Single Page Homepage Component with Responsive Hero Image Slider
@@ -44,7 +46,7 @@ function HomePage() {
       <Navbar />
 
       {/* Main Page Body */}
-      <main className="flex-1 relative z-1 animate-slide-up">
+      <main className="flex-1 relative z-10">
         {/* Homepage Hero Image Slider */}
         <Hero />
 
@@ -60,14 +62,14 @@ function HomePage() {
         {/* Grand Job Fair & Employers Section */}
         <EmployersSection />
 
-        {/* Media & Video Stories Gallery */}
-        <SuccessStories />
-
         {/* PVC Job Card Guarantee Banner */}
         <JobCardBanner />
 
         {/* Latest Notices & Updates */}
         <UpdatesNotice />
+
+        {/* Official Facebook Social Feed & Latest Updates */}
+        <FacebookUpdatesSection />
 
         {/* Career Guidance & Blogs */}
         <BlogsSection />
@@ -80,7 +82,7 @@ function HomePage() {
       </main>
 
       {/* Official Footer */}
-      <Footer className="relative z-1" />
+      <Footer className="relative z-10" />
     </div>
   );
 }
@@ -95,6 +97,10 @@ export default function App() {
         <Routes>
           {/* Main Homepage */}
           <Route path="/" element={<HomePage />} />
+
+          {/* Admin Panel Routes */}
+          <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
 
           {/* Job Card & Registration Routes */}
           <Route path="/job-card" element={<JobCardPage />} />

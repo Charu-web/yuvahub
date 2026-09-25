@@ -50,14 +50,14 @@ export default function EmployersSection() {
         <div className="relative z-10 max-w-4xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-black mb-3">
             <Sparkles className="w-4 h-4 text-yellow-300" />
-            <span>खासदार नोकरी महोत्सव २०२६ • यवतमाळ - वाशिम</span>
+            <span>खासदार नोकरी महोत्सव २०२६ • धाराशिव मतदार संघ</span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight">
             भव्य नोकरी मेळावा २०२६
           </h2>
           <p className="mt-2 text-base sm:text-xl font-bold text-orange-100">
-            नोकरीची संधी, उज्ज्वल भविष्याची दिशा! यवतमाळ - वाशिम जिल्ह्यातील तरुण-तरुणींसाठी सुवर्णसंधी!
+            नोकरीची संधी, उज्ज्वल भविष्याची दिशा! धाराशिव मतदार संघातील तरुण-तरुणींसाठी सुवर्णसंधी!
           </p>
 
           {/* Highlights Grid */}

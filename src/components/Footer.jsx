@@ -10,7 +10,6 @@ export default function Footer() {
     { name: 'मुखपृष्ठ', href: '#standard-naukri-mahotsav' },
     { name: 'नोकरी महोत्सव २०२६', href: '#standard-naukri-mahotsav' },
     { name: 'कंपन्या व पदभरती', href: '#niyokta' },
-    { name: 'गॅलरी व व्हिडिओ', href: '#success-stories' },
     { name: 'महत्त्वाच्या सूचना', href: '#suchana' },
     { name: 'माहिती व डाउनलोड्स', href: '#downloads' },
     { name: 'उमेदवार नोंदणी', href: '#nondani' },
@@ -26,7 +25,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <img
                 src="/logo3.png"
-                alt="खासदार संजय देशमुख (मामा)"
+                alt="खासदार ओमराजे निंबाळकर"
                 className="h-14 w-auto rounded-full border-2 border-primary"
                 onError={(e) => {
                   e.target.onerror = null;
@@ -35,22 +34,22 @@ export default function Footer() {
               />
               <div>
                 <h4 className="text-white font-black text-base leading-tight">
-                  खासदार संजय देशमुख
+                  खासदार ओमराजे निंबाळकर
                 </h4>
                 <p className="text-xs text-primary font-bold">
-                  यवतमाळ - वाशिम लोकसभा मतदारसंघ
+                  धाराशिव लोकसभा मतदारसंघ
                 </p>
               </div>
             </div>
 
             <p className="text-xs text-gray-400 leading-relaxed font-medium">
-              यवतमाळ - वाशिम मतदारसंघातील तरुणांच्या हाताला काम आणि उज्ज्वल भवितव्य देण्यासाठी ईश्वर फाउंडेशन व युवा हब द्वारे भव्य नोकरी महोत्सवाचे आयोजन.
+              धाराशिव मतदारसंघातील तरुणांच्या हाताला काम आणि उज्ज्वल भवितव्य देण्यासाठी युवा हब द्वारे भव्य नोकरी महोत्सवाचे आयोजन.
             </p>
 
             {/* Official Facebook Link */}
             <div className="mt-4">
               <a
-                href="https://www.facebook.com/SanjayDeshmukhSpeak/"
+                href="https://www.facebook.com/omprakashrajenimbalkar/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 text-xs font-bold transition-all"
@@ -58,7 +57,7 @@ export default function Footer() {
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
-                <span>Official Facebook: @SanjayDeshmukhSpeak</span>
+                <span>Official Facebook: @omprakashrajenimbalkar</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
@@ -102,7 +101,7 @@ export default function Footer() {
                 <MapPin className="size-4 text-primary shrink-0 mt-0.5" />
                 <div>
                   <span className="block text-white font-bold">आयोजन स्थळ:</span>
-                  <span className="text-gray-300">डिग्रस, यवतमाळ जिल्हा (Yavatmal – Washim)</span>
+                  <span className="text-gray-300">धाराशिव (Dharashiv, Maharashtra)</span>
                 </div>
               </div>
             </div>
@@ -118,10 +117,10 @@ export default function Footer() {
                 ★ १००% मोफत ऑनलाईन नोंदणी व प्रवेश
               </div>
               <div className="text-gray-300">
-                ★ ५०+ नामांकित कंपन्यांकडून थेट मुलाखती
+                ★ ५० नामांकित कंपन्यांकडून थेट मुलाखती
               </div>
               <div className="text-gray-300">
-                ★ निवड न झालेल्यांना मोफत PVC जॉब कार्ड
+                ★ निवड न झालेल्यांना विशेष Job Card
               </div>
               <div className="text-gray-300">
                 ★ दिव्यांग उमेदवारांना विशेष प्राधान्य
@@ -133,7 +132,7 @@ export default function Footer() {
 
         {/* Bottom Copyright Row */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-semibold">
-          <p>© {new Date().getFullYear()} खासदार संजय देशमुख. सर्व हक्क राखीव. | ईश्वर फाउंडेशन व युवा हब उपक्रम</p>
+          <p>© {new Date().getFullYear()} खासदार ओमराजे निंबाळकर. सर्व हक्क राखीव. | युवा हब उपक्रम</p>
 
           <button
             onClick={scrollToTop}

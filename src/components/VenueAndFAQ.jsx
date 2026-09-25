@@ -37,7 +37,7 @@ export default function VenueAndFAQ() {
                 </span>
               </div>
               <a
-                href="https://maps.google.com/maps?q=Digras,+Yavatmal,+Maharashtra"
+                href="https://maps.google.com/maps?q=Dharashiv,+Maharashtra"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline"
@@ -48,10 +48,10 @@ export default function VenueAndFAQ() {
             </div>
 
             <h3 className="text-xl sm:text-2xl font-black text-gray-900 leading-snug">
-              डिग्रस, यवतमाळ (Digras, Yavatmal)
+              धाराशिव (Dharashiv, Maharashtra)
             </h3>
             <p className="text-sm font-bold text-gray-600 mt-1">
-              यवतमाळ - वाशिम लोकसभा मतदारसंघ, महाराष्ट्र
+              धाराशिव लोकसभा मतदारसंघ, महाराष्ट्र
             </p>
 
             {/* Date & Time Badges */}
@@ -60,7 +60,7 @@ export default function VenueAndFAQ() {
                 <Calendar className="size-5 text-primary shrink-0" />
                 <div>
                   <span className="text-[11px] text-gray-500 block font-semibold">दिनांक (Date)</span>
-                  <span className="font-extrabold text-gray-900">२० सप्टेंबर २०२६ (20 Sept 2026)</span>
+                  <span className="font-extrabold text-gray-900">२५ ऑक्टोबर २०२६ (25 Oct 2026)</span>
                 </div>
               </div>
 

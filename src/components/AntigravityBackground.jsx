@@ -129,14 +129,6 @@ export default function AntigravityBackground() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Draw subtle ambient background fill
-      const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
-      bgGradient.addColorStop(0, 'rgba(248, 250, 252, 0.95)');
-      bgGradient.addColorStop(0.5, 'rgba(241, 245, 249, 0.92)');
-      bgGradient.addColorStop(1, 'rgba(248, 250, 252, 0.95)');
-      ctx.fillStyle = bgGradient;
-      ctx.fillRect(0, 0, width, height);
-
       if (!prefersReduced) {
         // 1. Render Large Soft Glowing Orbs (Floating & Pulsing)
         for (let i = 0; i < orbs.length; i++) {

@@ -36,7 +36,7 @@ export default function JobCardPage() {
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100 text-primary text-xs font-bold shadow-xs">
               <ShieldCheck className="w-4 h-4" />
-              <span>विशेष युवा रोजगार PVC जॉब कार्ड २०२६</span>
+              <span>विशेष युवा रोजगार JOB CARD २०२६ • धाराशिव मतदार संघ</span>
             </div>
           </div>
 

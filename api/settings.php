@@ -11,10 +11,10 @@ if (file_exists($dbPath)) {
     echo json_encode([
         'success' => true,
         'settings' => [
-            'siteTitle' => 'खासदार नोकरी महोत्सव २०२६',
-            'eventDate' => '२० सप्टेंबर २०२६',
-            'eventVenue' => 'डिग्रस, यवतमाळ',
-            'representativeName' => 'मा. संजय देशमुख (खासदार यवतमाळ - वाशिम)'
+            'siteTitle' => 'Naukri Mahotsav 2026 | YuvaHub',
+            'eventDate' => '२५ ऑक्टोबर २०२६',
+            'eventVenue' => 'धाराशिव',
+            'representativeName' => 'मा. ओमराजे निंबाळकर (खासदार, धाराशिव मतदार संघ)'
         ]
     ], JSON_UNESCAPED_UNICODE);
 }

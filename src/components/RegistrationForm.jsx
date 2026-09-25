@@ -263,7 +263,7 @@ export default function RegistrationForm() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const handleFinalSubmit = (e) => {
+  const handleFinalSubmit = async (e) => {
     e.preventDefault();
     if (!validateStep(3)) {
       setCurrentStep(3);
@@ -271,13 +271,41 @@ export default function RegistrationForm() {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/registrations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const generatedId = data.candidateId || data._id || data.id;
+        setCandidateId(generatedId);
+        setRegistrationSuccess(true);
+        toast.success(`नोंदणी यशस्वी! आपला नोंदणी क्रमांक: ${generatedId}`, 'नोंदणी यशस्वी!');
+      } else if (response.status === 409) {
+        // Candidate already registered with this phone / email
+        const existingId = data.existingCandidateId;
+        if (existingId) {
+          setCandidateId(existingId);
+          setRegistrationSuccess(true);
+          toast.info(`आपली आधीच नोंदणी झालेली आहे. आपला Candidate ID: ${existingId}`, 'नोंदणी आधीच अस्तित्वात');
+        } else {
+          toast.error(data.error || 'या मोबाईल किंवा ईमेलद्वारे आधीच नोंदणी झालेली आहे.', 'नोंदणी आधीच अस्तित्वात');
+        }
+      } else {
+        toast.error(data.error || 'नोंदणी करताना त्रुटी आली. कृपया सर्व माहिती तपासा.', 'नोंदणी अयशस्वी');
+      }
+    } catch (err) {
+      console.error('Registration submit error:', err);
+      toast.error('सर्व्हरशी संपर्क होऊ शकला नाही. कृपया इंटरनेट कनेक्शन तपासा.', 'Network Error');
+    } finally {
       setIsSubmitting(false);
-      const generatedId = `MP-JOB-2026-${Math.floor(100000 + Math.random() * 900000)}`;
-      setCandidateId(generatedId);
-      setRegistrationSuccess(true);
-      toast.success(`नोंदणी क्रमांक ${generatedId} तयार झाला आहे.`, 'नोंदणी यशस्वी!');
-    }, 1000);
+    }
   };
 
   const handleReset = () => {
@@ -341,13 +369,18 @@ export default function RegistrationForm() {
               महाराष्ट्रातील ५०+ प्रमुख कंपन्यांचा सहभाग
             </p>
           </div>
-          <div className="p-3 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-xs shrink-0">
-            <Building2 className="w-6 h-6 text-amber-400" />
+          <div className="size-14 sm:size-16 rounded-xl overflow-hidden border border-white/20 shadow-xs shrink-0">
+            <img
+              src="/career-job-opportunity.jpg"
+              alt="नोकरी व करिअर संधी"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
 
-      {/* Tablet Registration Header Visual Banner (CSS-Based) */}
+      {/* Tablet Registration Header Visual Banner */}
       <div className="hidden md:flex lg:hidden relative overflow-hidden rounded-[24px] bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 p-5 border border-indigo-500/30 shadow-md mb-4 text-white items-center justify-between">
         <div className="absolute -top-12 -right-12 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
         <div className="relative z-10">
@@ -360,7 +393,13 @@ export default function RegistrationForm() {
           </h3>
         </div>
         <div className="relative z-10 flex items-center gap-3 shrink-0">
-          <div className="px-3.5 py-2 rounded-xl bg-white/10 border border-white/10 text-center text-xs font-bold text-blue-200 backdrop-blur-xs">
+          <img
+            src="/career-job-opportunity.jpg"
+            alt="नोकरी व करिअर संधी"
+            className="w-24 h-16 rounded-xl object-cover border border-white/20 shadow-md"
+            loading="lazy"
+          />
+          <div className="px-3 py-1.5 rounded-xl bg-white/10 border border-white/10 text-center text-xs font-bold text-blue-200 backdrop-blur-xs">
             <span className="block text-amber-400 font-extrabold text-sm">50+</span> कंपन्या
           </div>
         </div>
@@ -449,7 +488,7 @@ export default function RegistrationForm() {
             </div>
           </div>
 
-          {/* CSS-Based Career & Employment Visual Area (No img tags) */}
+          {/* AI-Generated Career & Employment Visual Card */}
           <div className="mt-auto pt-6">
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 p-5 text-white border border-indigo-500/30 shadow-xl group">
               {/* Glowing circles & ambient orbs */}
@@ -460,6 +499,16 @@ export default function RegistrationForm() {
               <div className="absolute inset-0 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:14px_14px] opacity-15 pointer-events-none"></div>
 
               <div className="relative z-10">
+                {/* AI-Generated Job/Career Image */}
+                <div className="relative w-full h-36 rounded-xl overflow-hidden mb-3.5 border border-white/15 shadow-md">
+                  <img
+                    src="/career-job-opportunity.jpg"
+                    alt="नोकरी व करिअर संधी २०२६"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[11px] font-bold">
                     <Briefcase className="w-3.5 h-3.5 text-blue-400" />
@@ -1007,10 +1056,11 @@ export default function RegistrationForm() {
                         onChange={(e) => updateField('preferredJobLocation', e.target.value)}
                       >
                         <option value="">निवडा (Select Location)</option>
+                        <option value="dharashiv">Dharashiv (धाराशिव)</option>
                         <option value="yavatmal">Yavatmal (यवतमाळ)</option>
                         <option value="washim">Washim (वाशिम)</option>
                         <option value="digras">Digras (डिग्रस)</option>
-                        <option value="all">All Yavatmal - Washim Region (सर्व)</option>
+                        <option value="all">All Maharashtra / सर्व ठिकाणे</option>
                       </select>
                       {errors.preferredJobLocation && (
                         <p className="text-red-500 text-xs mt-1 font-semibold">{errors.preferredJobLocation}</p>
@@ -1203,12 +1253,12 @@ export default function RegistrationForm() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">स्थळ:</span>
-                    <span className="font-semibold text-gray-800">डिग्रस, यवतमाळ</span>
+                    <span className="font-semibold text-gray-800">धाराशिव (Dharashiv)</span>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-orange-200 flex justify-between items-center text-[11px] text-gray-500">
-                  <span>दिनांक: २० सप्टेंबर २०२६</span>
+                  <span>दिनांक: २५ ऑक्टोबर २०२६</span>
                   <span>वेळ: स. ९:०० ते सायं. ५:००</span>
                 </div>
               </div>
